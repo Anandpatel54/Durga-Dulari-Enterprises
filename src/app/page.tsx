@@ -11,6 +11,7 @@ import { TrainingPreview } from '@/components/home/TrainingPreview';
 import { ResourcesPreview } from '@/components/home/ResourcesPreview';
 import { TestimonialsPreview } from '@/components/home/TestimonialsPreview';
 import { FinalCTA } from '@/components/home/FinalCTA';
+import { ActivitiesSection } from '@/components/services/ActivitiesSection';
 
 export const metadata: Metadata = {
   title: 'Durga Dulari Enterprises | Textile Manpower & Industrial Solutions',
@@ -30,6 +31,10 @@ export default function HomePage() {
       
       <ScrollReveal>
         <ServiceSnapshot />
+      </ScrollReveal>
+      
+      <ScrollReveal>
+        <ActivitiesSection />
       </ScrollReveal>
       
       <ScrollReveal>

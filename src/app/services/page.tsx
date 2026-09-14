@@ -5,6 +5,7 @@ import { Card } from '@/components/common/Card';
 import { DynamicIcon } from '@/components/common/DynamicIcon';
 import { services } from '@/data/services';
 import { ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { ActivitiesSection } from '@/components/services/ActivitiesSection';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -67,6 +68,9 @@ export default function ServicesPage() {
           </div>
         </Container>
       </section>
+
+      {/* 21 Specialized Industrial Activities */}
+      <ActivitiesSection />
 
       {/* CTA */}
       <section className="py-20 sm:py-24 bg-slate-50 dark:bg-slate-900/60 text-center border-y border-slate-100 dark:border-slate-800">

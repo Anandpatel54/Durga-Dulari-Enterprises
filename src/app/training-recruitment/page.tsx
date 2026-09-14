@@ -99,7 +99,7 @@ export default function TrainingPage() {
                   <p className="text-slate-400 text-xs font-semibold leading-relaxed">Classes led by retired mill engineers with 20+ years of floor practice.</p>
                 </div>
               </div>
-              
+
               <div className="flex gap-4">
                 <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-primary-orange flex-shrink-0">
                   <BookOpen size={20} />

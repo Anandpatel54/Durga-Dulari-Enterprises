@@ -7,6 +7,7 @@ import { Button } from '@/components/common/Button';
 import { Toast } from '@/components/ui/Toast';
 import { validateEmail, validateIndianPhone } from '@/lib/validations';
 import { services } from '@/data/services';
+import { activities } from '@/data/activities';
 import { Check, ChevronDown } from 'lucide-react';
 import type { LeadFormData } from '@/types';
 
@@ -26,6 +27,10 @@ const requirementOptions = [
   ...services.map((service) => ({
     value: service.slug,
     label: service.title,
+  })),
+  ...activities.map((activity) => ({
+    value: activity.slug,
+    label: activity.title,
   })),
   { value: 'training-recruitment', label: 'Training & Recruitment' },
   { value: 'other', label: 'Other' },
@@ -71,8 +76,6 @@ const locationOptions = [
   { value: 'west-bengal', label: 'West Bengal' },
   { value: 'other', label: 'Other' },
 ];
-
-const leadRecipientEmail = 'anandcoder0@gmail.com';
 
 function FormDropdown({
   label,
@@ -209,6 +212,7 @@ export function LeadForm({
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -235,78 +239,76 @@ export function LeadForm({
     return options.find((option) => option.value === value)?.label || value;
   };
 
-  const buildEmailBody = () => {
-    const locationLabel = getOptionLabel(locationOptions, formData.location);
-    const requirementLabel = getOptionLabel(visibleRequirementOptions, formData.requirement);
-
-    return [
-      'New inquiry received from Durga Dulari Enterprises website:',
-      '',
-      `Full Name: ${formData.name}`,
-      `Company: ${formData.company}`,
-      `Mobile Number: ${formData.mobile}`,
-      `Email Address: ${formData.email}`,
-      `Location / City: ${locationLabel}`,
-      `Requirement: ${requirementLabel}`,
-      `Tell us more: ${formData.details.trim() || 'Not provided'}`,
-      `Consent: ${formData.consent ? 'Yes' : 'No'}`,
-    ].join('\n');
-  };
-
-  const buildGmailComposeLink = (subject: string, body: string) => {
-    const params = new URLSearchParams({
-      view: 'cm',
-      fs: '1',
-      tf: '1',
-      to: leadRecipientEmail,
-      su: subject,
-      body,
-    });
-
-    return `https://mail.google.com/mail/u/0/?${params.toString()}`;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     setIsLoading(true);
+    setApiError(null);
 
-    const subject = `New Inquiry from ${formData.name} - ${formData.company}`;
-    window.open(buildGmailComposeLink(subject, buildEmailBody()), '_blank', 'noopener,noreferrer');
-
-    setSubmitted(true);
-    setShowToast(true);
-    setIsLoading(false);
-
-    onSuccess?.(formData);
-
-    // Reset form
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        company: '',
-        mobile: '',
-        email: '',
-        location: '',
-        requirement: defaultRequirement || '',
-        details: '',
-        consent: false,
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          company: formData.company.trim(),
+          mobile: formData.mobile.trim(),
+          email: formData.email.trim(),
+          location: getOptionLabel(locationOptions, formData.location),
+          requirement: getOptionLabel(visibleRequirementOptions, formData.requirement),
+          details: formData.details.trim(),
+          consent: formData.consent,
+        }),
       });
-      setSubmitted(false);
-    }, 3000);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit inquiry. Please try again.');
+      }
+
+      setSubmitted(true);
+      setShowToast(true);
+      onSuccess?.(formData);
+
+      // Reset form
+      setTimeout(() => {
+        setFormData({
+          name: '',
+          company: '',
+          mobile: '',
+          email: '',
+          location: '',
+          requirement: defaultRequirement || '',
+          details: '',
+          consent: false,
+        });
+        setSubmitted(false);
+      }, 5000);
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      setApiError(err.message || 'Something went wrong while sending your inquiry. Please try again or reach out via phone.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (submitted) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-8 text-center">
-        <h3 className="text-2xl font-bold text-green-800 mb-2">Thank You!</h3>
-        <p className="text-green-700 mb-4">
-          Your email draft is ready for {leadRecipientEmail}. Please press Send in Gmail to complete the inquiry.
+      <div className="bg-green-50 border border-green-200 rounded-2xl p-8 md:p-10 text-center shadow-sm">
+        <div className="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Check size={28} />
+        </div>
+        <h3 className="text-2xl font-extrabold text-green-900 mb-2">Thank You!</h3>
+        <p className="text-green-800 font-medium mb-3">
+          Your inquiry has been sent directly to our operations team.
         </p>
-        <p className="text-sm text-green-600">
-          We appreciate your interest in Durga Dulari Enterprises.
+        <p className="text-sm text-slate-600 max-w-md mx-auto">
+          We will review your requirements and reach out to you within <strong>2 hours</strong> during operational shifts.
         </p>
       </div>
     );
@@ -315,6 +317,11 @@ export function LeadForm({
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-6">
+        {apiError && (
+          <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-medium">
+            {apiError}
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
             label="Full Name"
