@@ -17,9 +17,6 @@ import {
   Award,
   SlidersHorizontal,
   RotateCcw,
-  Activity,
-  Wrench,
-  Check,
   Layers,
   MapPin,
 } from 'lucide-react';

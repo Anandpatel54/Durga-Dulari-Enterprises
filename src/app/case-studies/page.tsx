@@ -17,10 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudiesPage() {
-  return (
-    <main>
-      <CaseStudiesContent />
-    </main>
-  );
+  return <CaseStudiesContent />;
 }
 

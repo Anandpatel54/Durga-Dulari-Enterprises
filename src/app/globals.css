@@ -58,6 +58,19 @@ body {
   background-color: #0f172a;
 }
 
+/* Case studies and landing page gradient backgrounds with full dark mode support */
+.case-studies-bg {
+  background: radial-gradient(circle at top, rgba(249, 115, 22, 0.15), transparent 26%),
+              linear-gradient(180deg, #f8fafc 0%, #fff7ed 32%, #f8fafc 100%);
+  background-color: #f8fafc;
+}
+
+.dark .case-studies-bg {
+  background: radial-gradient(circle at top, rgba(249, 115, 22, 0.10), transparent 26%),
+              linear-gradient(180deg, #020617 0%, #07101e 35%, #020617 100%);
+  background-color: #020617 !important;
+}
+
 .dark main .bg-blue-50,
 .dark main .bg-green-50,
 .dark main .bg-green-50\/50 {

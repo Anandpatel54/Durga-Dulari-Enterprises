@@ -24,8 +24,27 @@ export async function POST(request: Request) {
       );
     }
 
+    // Validate 10-digit mobile number
+    const cleanedMobile = typeof mobile === 'string' ? mobile.replace(/\D/g, '') : '';
+    const normalizedMobile = (cleanedMobile.length === 12 && cleanedMobile.startsWith('91'))
+      ? cleanedMobile.slice(2)
+      : cleanedMobile;
+
+    if (!/^[6-9]\d{9}$/.test(normalizedMobile)) {
+      return NextResponse.json(
+        { error: 'Please enter a valid 10-digit mobile number.' },
+        { status: 400 }
+      );
+    }
+
     const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || 'anandcoder0@gmail.com';
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Durga Dulari Website <onboarding@resend.dev>';
+    const defaultFrom = 'Durga Dulari Enterprises <onboarding@resend.dev>';
+    let fromEmail = process.env.RESEND_FROM_EMAIL || defaultFrom;
+    if (!fromEmail.includes('<')) {
+      fromEmail = `Durga Dulari Enterprises <${fromEmail}>`;
+    } else if (fromEmail.toLowerCase().includes('durga dulari website')) {
+      fromEmail = fromEmail.replace(/durga dulari website/i, 'Durga Dulari Enterprises');
+    }
 
     const emailSubject = `New Inquiry: ${name} (${company}) - ${requirement || 'General'}`;
 
@@ -51,7 +70,7 @@ export async function POST(request: Request) {
             <tr style="border-bottom: 1px solid #f1f5f9;">
               <td style="padding: 10px 0; font-weight: bold; color: #64748b;">Mobile Number:</td>
               <td style="padding: 10px 0; color: #0f172a;">
-                <a href="tel:${mobile}" style="color: #F4791F; text-decoration: none; font-weight: bold;">${mobile}</a>
+                <a href="tel:${normalizedMobile}" style="color: #F4791F; text-decoration: none; font-weight: bold;">+91 ${normalizedMobile}</a>
               </td>
             </tr>
             <tr style="border-bottom: 1px solid #f1f5f9;">
@@ -83,7 +102,7 @@ export async function POST(request: Request) {
                       <a href="mailto:${email}" style="display: inline-block; background-color: #0B2545; color: #ffffff; padding: 11px 22px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; white-space: nowrap;">Reply via Email</a>
                     </td>
                     <td style="padding: 0 6px;">
-                      <a href="tel:${mobile}" style="display: inline-block; background-color: #F4791F; color: #ffffff; padding: 11px 22px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; white-space: nowrap;">Call Client</a>
+                      <a href="tel:+91${normalizedMobile}" style="display: inline-block; background-color: #F4791F; color: #ffffff; padding: 11px 22px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; white-space: nowrap;">Call Client</a>
                     </td>
                   </tr>
                 </table>

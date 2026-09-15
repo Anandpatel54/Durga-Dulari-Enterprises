@@ -219,8 +219,12 @@ export function LeadForm({
 
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.company.trim()) newErrors.company = 'Company is required';
-    if (!validateIndianPhone(formData.mobile)) {
-      newErrors.mobile = 'Valid 10-digit mobile number required';
+    if (!formData.mobile.trim()) {
+      newErrors.mobile = 'Mobile number is required';
+    } else if (formData.mobile.length !== 10) {
+      newErrors.mobile = 'Mobile number must be exactly 10 digits';
+    } else if (!validateIndianPhone(formData.mobile)) {
+      newErrors.mobile = 'Please enter a valid 10-digit mobile number (starts with 6-9)';
     }
     if (!validateEmail(formData.email)) {
       newErrors.email = 'Valid email is required';
@@ -346,8 +350,34 @@ export function LeadForm({
             label="Mobile Number"
             placeholder="10-digit mobile number"
             type="tel"
+            inputMode="numeric"
+            maxLength={10}
             value={formData.mobile}
-            onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+            onKeyDown={(e) => {
+              if (
+                ['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'Enter'].includes(e.key) ||
+                e.ctrlKey ||
+                e.metaKey
+              ) {
+                return;
+              }
+              if (!/^\d$/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
+            onChange={(e) => {
+              let val = e.target.value.replace(/\D/g, '');
+              if (val.length === 12 && val.startsWith('91')) {
+                val = val.slice(2);
+              }
+              val = val.slice(0, 10);
+              setFormData((prev) => ({ ...prev, mobile: val }));
+              if (errors.mobile) {
+                if (val.length === 10 && /^[6-9]/.test(val)) {
+                  setErrors((prev) => ({ ...prev, mobile: '' }));
+                }
+              }
+            }}
             error={errors.mobile}
             required
           />
