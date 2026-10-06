@@ -75,7 +75,6 @@ export default function CompliancePage() {
             ))}
           </div>
 
-          {/* Important Note */}
           <div className="max-w-3xl mx-auto bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-3xl p-8 lg:p-10 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
               <ShieldCheck className="text-primary-orange" size={28} />
