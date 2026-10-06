@@ -165,7 +165,7 @@ export function Footer() {
                   value={callbackForm.name}
                   onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
                   error={errors.name}
-                  className="bg-gray-100 text-neutral-text placeholder-gray-500"
+                  className="bg-[#051428] border-slate-700/80 text-white placeholder-slate-400 focus:border-primary-orange focus:ring-orange-500/20"
                 />
                 <Input
                   placeholder="Phone Number (10 digits)"
@@ -197,14 +197,14 @@ export function Footer() {
                     }
                   }}
                   error={errors.phone}
-                  className="bg-gray-100 text-neutral-text placeholder-gray-500"
+                  className="bg-[#051428] border-slate-700/80 text-white placeholder-slate-400 focus:border-primary-orange focus:ring-orange-500/20"
                 />
                 <Textarea
-                  placeholder="Message"
+                  placeholder="Message (optional)"
                   value={callbackForm.message}
                   onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
                   rows={3}
-                  className="bg-gray-100 text-neutral-text placeholder-gray-500"
+                  className="bg-[#051428] border-slate-700/80 text-white placeholder-slate-400 focus:border-primary-orange focus:ring-orange-500/20"
                 />
                 <Button type="submit" variant="secondary" size="sm" fullWidth>
                   Request Callback

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '@/components/common/Container';
 import { LeadForm } from '@/components/forms/LeadForm';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
-import { PHONE_NUMBER, EMAIL, BUSINESS_HOURS } from '@/lib/constants';
+import { PHONE_NUMBER, WHATSAPP_NUMBER, EMAIL, BUSINESS_HOURS } from '@/lib/constants';
 import type { Metadata } from 'next';
 import { Card } from '@/components/common/Card';
 
@@ -19,7 +19,7 @@ export default function ContactPage({
   const defaultRequirement = searchParams?.requirement;
 
   return (
-    <main className="bg-white">
+    <main className="bg-white dark:bg-slate-950 transition-colors duration-300">
       {/* Hero */}
       <section className="bg-gradient-to-br from-[#0B2545] to-[#040e1b] text-white py-12 md:py-14 relative overflow-hidden dark-industrial-grid">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary-orange/5 rounded-full blur-[100px] pointer-events-none" />
@@ -38,54 +38,54 @@ export default function ContactPage({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 items-start">
             {/* Contact Info */}
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold text-primary-navy mb-2 tracking-tight">Quick Contact</h2>
-              <p className="text-slate-500 text-sm font-semibold mb-8">Reach our technical desk directly.</p>
+              <h2 className="text-3xl font-extrabold text-primary-navy dark:text-white mb-2 tracking-tight">Quick Contact</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-8">Reach our technical desk directly.</p>
 
-              <Card className="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm space-y-6">
+              <Card className="bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-6">
                 <div className="flex gap-4">
                   <div className="w-10 h-10 rounded-lg bg-primary-orange/10 flex items-center justify-center text-primary-orange flex-shrink-0">
                     <Phone size={18} />
                   </div>
                   <div>
-                    <p className="font-extrabold text-primary-navy text-sm uppercase tracking-wide">Call Us</p>
+                    <p className="font-extrabold text-primary-navy dark:text-white text-sm uppercase tracking-wide">Call Us</p>
                     <a href={`tel:${PHONE_NUMBER}`} className="text-primary-orange hover:underline text-lg font-bold block mt-1">
                       {PHONE_NUMBER}
                     </a>
-                    <p className="text-xs text-slate-500 font-semibold mt-1">24×7 Urgent Operations Support</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">24×7 Urgent Operations Support</p>
                   </div>
                 </div>
 
-                <div className="flex gap-4 pt-4 border-t border-slate-55">
+                <div className="flex gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                   <div className="w-10 h-10 rounded-lg bg-primary-orange/10 flex items-center justify-center text-primary-orange flex-shrink-0">
                     <Mail size={18} />
                   </div>
                   <div>
-                    <p className="font-extrabold text-primary-navy text-sm uppercase tracking-wide">Email</p>
-                    <a href={`mailto:${EMAIL}`} className="text-slate-700 hover:text-primary-orange hover:underline font-bold text-sm block mt-1">
+                    <p className="font-extrabold text-primary-navy dark:text-white text-sm uppercase tracking-wide">Email</p>
+                    <a href={`mailto:${EMAIL}`} className="text-slate-700 dark:text-slate-300 hover:text-primary-orange hover:underline font-bold text-sm block mt-1">
                       {EMAIL}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex gap-4 pt-4 border-t border-slate-55">
+                <div className="flex gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                   <div className="w-10 h-10 rounded-lg bg-primary-orange/10 flex items-center justify-center text-primary-orange flex-shrink-0">
                     <MapPin size={18} />
                   </div>
                   <div>
-                    <p className="font-extrabold text-primary-navy text-sm uppercase tracking-wide">Service Area</p>
-                    <p className="text-slate-700 font-bold text-sm mt-1">PAN India Operations</p>
-                    <p className="text-slate-700 font-semibold text-xs mt-1.5">Madhya Pradesh · Himachal Pradesh · Punjab · Gujarat</p>
-                    <p className="text-xs text-slate-500 mt-1 font-medium">Multiple support centers across Coimbatore, Ludhiana, & Tirupur.</p>
+                    <p className="font-extrabold text-primary-navy dark:text-white text-sm uppercase tracking-wide">Service Area</p>
+                    <p className="text-slate-700 dark:text-slate-200 font-bold text-sm mt-1">PAN India Operations</p>
+                    <p className="text-slate-600 dark:text-slate-400 font-semibold text-xs mt-1.5">Madhya Pradesh · Himachal Pradesh · Punjab · Gujarat</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Multiple support centers across Coimbatore, Ludhiana, & Tirupur.</p>
                   </div>
                 </div>
 
-                <div className="flex gap-4 pt-4 border-t border-slate-55">
+                <div className="flex gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                   <div className="w-10 h-10 rounded-lg bg-primary-orange/10 flex items-center justify-center text-primary-orange flex-shrink-0">
                     <Clock size={18} />
                   </div>
                   <div>
-                    <p className="font-extrabold text-primary-navy text-sm uppercase tracking-wide">Business Hours</p>
-                    <p className="text-slate-700 font-bold text-sm mt-1">{BUSINESS_HOURS.weekday}</p>
+                    <p className="font-extrabold text-primary-navy dark:text-white text-sm uppercase tracking-wide">Business Hours</p>
+                    <p className="text-slate-700 dark:text-slate-200 font-bold text-sm mt-1">{BUSINESS_HOURS.weekday}</p>
                     <p className="text-xs text-primary-orange font-bold mt-1">{BUSINESS_HOURS.support}</p>
                   </div>
                 </div>
@@ -94,9 +94,9 @@ export default function ContactPage({
 
             {/* Form */}
             <div className="lg:col-span-2">
-              <div className="bg-slate-50 border border-slate-100 rounded-3xl p-8 md:p-12 shadow-sm">
-                <h2 className="text-3xl font-extrabold text-primary-navy mb-2 tracking-tight">Send Us a Message</h2>
-                <p className="text-slate-500 font-semibold mb-8">We typically respond within <strong>2 hours</strong> during business shifts.</p>
+              <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-sm">
+                <h2 className="text-3xl font-extrabold text-primary-navy dark:text-white mb-2 tracking-tight">Send Us a Message</h2>
+                <p className="text-slate-500 dark:text-slate-400 font-semibold mb-8">We typically respond within <strong>2 hours</strong> during business shifts.</p>
                 <LeadForm submitButtonText="Submit Inquiry" defaultRequirement={defaultRequirement} />
               </div>
             </div>
@@ -105,19 +105,19 @@ export default function ContactPage({
       </section>
 
       {/* WhatsApp CTA */}
-      <section className="py-16 bg-green-50/50 border-t border-green-100">
+      <section className="py-16 bg-emerald-50/50 dark:bg-emerald-950/20 border-t border-emerald-100 dark:border-emerald-900/30">
         <Container className="text-center space-y-4">
           <span className="relative flex h-3 w-3 mx-auto">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
           </span>
-          <h2 className="text-3xl font-extrabold text-primary-navy tracking-tight">Prefer Direct Chat?</h2>
-          <p className="text-slate-655 font-medium max-w-md mx-auto">Skip the form entirely and initiate a direct technical chat with our support manager.</p>
+          <h2 className="text-3xl font-extrabold text-primary-navy dark:text-white tracking-tight">Prefer Direct Chat?</h2>
+          <p className="text-slate-600 dark:text-slate-300 font-medium max-w-md mx-auto">Skip the form entirely and initiate a direct technical chat with our support manager.</p>
           <a
-            href="https://wa.me/919999999999"
+            href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-green-500 text-white font-extrabold rounded-xl hover:bg-green-600 transition-all duration-200 shadow-md hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-emerald-500 text-white font-extrabold rounded-xl hover:bg-emerald-600 transition-all duration-200 shadow-md hover:scale-[1.02] active:scale-[0.98]"
           >
             Open WhatsApp Live Chat
           </a>

@@ -3,6 +3,7 @@ import { Container } from '@/components/common/Container';
 import { Button } from '@/components/common/Button';
 import { DynamicIcon } from '@/components/common/DynamicIcon';
 import { services, getAllServiceSlugs } from '@/data/services';
+import { WHATSAPP_NUMBER } from '@/lib/constants';
 import { ArrowRight, CheckCircle2, MessageCircle, PhoneCall, ShieldCheck, Sparkles, Workflow } from 'lucide-react';
 import Link from 'next/link';
 
@@ -32,33 +33,34 @@ export default function ServiceDetailPage({
   }
 
   return (
-    <main className="bg-white dark:bg-slate-950">
+    <main className="bg-white dark:bg-slate-950 transition-colors duration-300">
       {/* Hero */}
-      <section className="bg-white dark:bg-slate-950 py-16 sm:py-20 border-b border-slate-100 dark:border-slate-800">
-        <Container>
+      <section className="bg-gradient-to-br from-[#0B2545] via-[#071b33] to-[#040e1b] text-white py-16 sm:py-20 relative overflow-hidden dark-industrial-grid">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary-orange/10 rounded-full blur-[120px] pointer-events-none" />
+        <Container className="relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div className="lg:col-span-8">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-primary-orange/10 px-4 py-2 text-sm font-semibold text-primary-orange ring-1 ring-primary-orange/20">
+              <span className="inline-flex items-center gap-2 bg-primary-orange/20 border border-primary-orange/30 text-primary-orange px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 shadow-sm backdrop-blur-sm">
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
-                Service line
-              </div>
+                Service Line
+              </span>
               <div className="mb-6 flex items-start gap-4">
-                <div className="hidden sm:flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary-orange/10 text-primary-orange ring-1 ring-primary-orange/15">
+                <div className="hidden sm:flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary-orange/20 text-primary-orange border border-primary-orange/30">
                   <DynamicIcon name={service.icon} size={28} />
                 </div>
                 <div>
-                  <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight text-slate-950 dark:text-white">{service.title}</h1>
-                  <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">{service.description}</p>
+                  <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight text-white">{service.title}</h1>
+                  <p className="text-lg sm:text-xl text-slate-300 max-w-3xl leading-relaxed font-medium">{service.description}</p>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8">
                 <Button variant="secondary" asChild>
-                  <Link href={consultationHref} className="gap-2">
+                  <Link href={consultationHref} className="gap-2 font-bold shadow-md">
                     Request Consultation <ArrowRight size={18} />
                   </Link>
                 </Button>
-                <Button variant="outline" className="dark:border-white dark:text-white" asChild>
-                  <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="gap-2">
+                <Button variant="outline" className="border-white/40 text-white hover:bg-white/10" asChild>
+                  <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="gap-2">
                     <MessageCircle size={18} />
                     WhatsApp Support
                   </a>
@@ -67,25 +69,25 @@ export default function ServiceDetailPage({
             </div>
 
             <div className="lg:col-span-4">
-              <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-6 shadow-sm">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-orange/10 text-primary-orange">
+              <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 backdrop-blur-md p-6 sm:p-8 shadow-2xl text-white">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-orange/20 text-primary-orange border border-primary-orange/30">
                   <ShieldCheck size={24} />
                 </div>
-                <h2 className="text-xl font-bold text-slate-950 dark:text-white mb-3">Operational support, without delay</h2>
-                <p className="text-sm leading-6 text-slate-600 dark:text-slate-300 mb-5">
+                <h2 className="text-xl font-bold text-white mb-3">Operational support, without delay</h2>
+                <p className="text-sm leading-6 text-slate-300 mb-5">
                   Share your requirement and our team will help you identify the right scope, deployment path, and next step.
                 </p>
-                <div className="space-y-3 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                <div className="space-y-3 text-sm font-semibold text-slate-200">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-primary-orange" />
+                    <CheckCircle2 className="h-4 w-4 text-primary-orange shrink-0" />
                     PAN India service coverage
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-primary-orange" />
+                    <CheckCircle2 className="h-4 w-4 text-primary-orange shrink-0" />
                     24x7 urgent support route
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-primary-orange" />
+                    <CheckCircle2 className="h-4 w-4 text-primary-orange shrink-0" />
                     Compliance-ready process
                   </div>
                 </div>
@@ -182,8 +184,8 @@ export default function ServiceDetailPage({
                 {service.cta.primary}
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white" asChild>
-              <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="gap-2">
+            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10" asChild>
+              <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="gap-2">
                 <MessageCircle size={18} />
                 WhatsApp Us
               </a>
