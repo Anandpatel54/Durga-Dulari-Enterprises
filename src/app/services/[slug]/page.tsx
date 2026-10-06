@@ -13,12 +13,13 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ServiceDetailPage({
+export default async function ServiceDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const service = services.find((s) => s.slug === params.slug);
+  const { slug } = await params;
+  const service = services.find((s) => s.slug === slug);
   const consultationHref = `/contact?requirement=${encodeURIComponent(service?.slug || '')}`;
 
   if (!service) {
