@@ -106,7 +106,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Stats Grid */}
           <div className="bg-[#0b2545] text-white rounded-3xl p-8 md:p-12 grid grid-cols-2 lg:grid-cols-4 gap-8 relative overflow-hidden dark-industrial-grid shadow-xl">
             <div className="text-center">
               <p className="text-4xl md:text-5xl font-black text-primary-orange mb-2">20+</p>
