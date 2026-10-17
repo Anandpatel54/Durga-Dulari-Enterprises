@@ -9,8 +9,8 @@ export function SiteHeader() {
   const navbarRef = useRef<HTMLDivElement>(null);
 
   const [isScrolled, setIsScrolled] = useState(false);
-  const [bannerHeight, setBannerHeight] = useState(0);
-  const [navbarHeight, setNavbarHeight] = useState(0);
+  const [bannerHeight, setBannerHeight] = useState(42);
+  const [navbarHeight, setNavbarHeight] = useState(65);
 
   // Measure banner and navbar heights
   useEffect(() => {
@@ -75,7 +75,7 @@ export function SiteHeader() {
       </div>
       <div
         aria-hidden="true"
-        style={{ height: totalUnscrolledHeight }}
+        style={{ height: totalUnscrolledHeight || 107 }}
       />
     </>
   );

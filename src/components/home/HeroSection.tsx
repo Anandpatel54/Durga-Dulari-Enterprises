@@ -141,9 +141,9 @@ export function HeroSection() {
       <div className="absolute top-10 left-10 w-72 h-72 bg-primary-orange/10 rounded-full blur-[100px] pointer-events-none z-0" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
-      <Container className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container className="relative z-10">
         {/* Main Grid Layout: Info on Left, Slanted Collage on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
 
           {/* Left Column (Content, Stats, Services, Results) */}
           <div className="lg:col-span-7 space-y-5 sm:space-y-6 flex flex-col justify-center">

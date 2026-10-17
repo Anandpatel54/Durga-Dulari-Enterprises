@@ -23,7 +23,7 @@ export function Container({
 }: ContainerProps) {
   return (
     <div
-      className={clsx('mx-auto px-4 md:px-6 lg:px-8', maxWidthClasses[maxWidth], className)}
+      className={clsx('mx-auto px-4 sm:px-6 lg:px-8', maxWidthClasses[maxWidth], className)}
     >
       {children}
     </div>

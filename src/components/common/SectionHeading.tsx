@@ -13,10 +13,10 @@ export function SectionHeading({
   subtitle,
   description,
   centered = true,
-  className,
+  className = '',
 }: SectionHeadingProps) {
   return (
-    <div className={className || `mb-8 sm:mb-10 ${centered ? 'text-center' : ''}`}>
+    <div className={`mb-8 sm:mb-10 ${centered ? 'text-center' : 'text-left'} ${className}`}>
       {subtitle && (
         <p className="text-primary-orange font-semibold text-sm sm:text-base md:text-lg mb-2 break-words">
           {subtitle}
@@ -26,7 +26,7 @@ export function SectionHeading({
         {title}
       </h2>
       {description && (
-        <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed break-words">
+        <p className={`text-slate-600 dark:text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed break-words ${centered ? 'mx-auto' : ''}`}>
           {description}
         </p>
       )}
